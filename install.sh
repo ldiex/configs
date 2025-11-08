@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Script to install development tools using Homebrew
 
 echo "Installing packages using Homebrew..."
 
@@ -20,6 +19,8 @@ packages=(
     "lazygit"   # Terminal UI for git
     "uv"        # Python package installer
     "eza"       # Modern ls replacement
+    "neovim"    # Modern Vim editor
+    "btop"      # Resource monitor
 )
 
 for package in "${packages[@]}"; do
