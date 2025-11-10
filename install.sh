@@ -21,6 +21,7 @@ packages=(
     "eza"       # Modern ls replacement
     "neovim"    # Modern Vim editor
     "btop"      # Resource monitor
+    "aria2"     # Download utility
 )
 
 for package in "${packages[@]}"; do
