@@ -6,6 +6,7 @@ set fish_greeting ""
 
 alias ls 'eza --icons'
 alias cat 'bat'
+alias fopen 'fzf | xargs open'
 
 # fish_config command to open config in Neovim
 function fish_config
@@ -13,3 +14,5 @@ function fish_config
 end
 
 
+# uv
+fish_add_path "/Users/tianlinpan/.local/bin"
