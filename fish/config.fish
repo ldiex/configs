@@ -3,6 +3,7 @@ if status is-interactive
 end
 
 set fish_greeting ""
+set -g fish_key_bindings fish_vi_key_bindings
 
 alias ls 'eza --icons'
 alias cat 'bat'
