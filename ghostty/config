@@ -35,5 +35,6 @@ macos-titlebar-proxy-icon = hidden
 macos-option-as-alt = true
 macos-titlebar-style = tabs
 
-link-previews = true
+window-padding-balance = true
 
+link-previews = true
