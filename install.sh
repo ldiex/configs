@@ -1,5 +1,17 @@
 #!/bin/bash
 
+echo "Setting up config files..."
+
+# Create ~/.config if it doesn't exist
+mkdir -p ~/.config
+
+cp -r fish ~/.config/fish
+cp -r ghostty ~/.config/ghostty
+
+# Copy .claude directory
+cp -r .claude ~/
+
+echo "Config files set up successfully!"
 
 echo "Installing packages using Homebrew..."
 
