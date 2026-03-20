@@ -34,7 +34,6 @@ packages=(
     "neovim"    # Modern Vim editor
     "btop"      # Resource monitor
     "aria2"     # Download utility
-    "ghossty"   # Terminal
 )
 
 for package in "${packages[@]}"; do
