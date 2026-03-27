@@ -9,6 +9,16 @@ description: Read and analyze arXiv papers from ID or URL, convert papers to Mar
 
 Fetch the paper as Markdown first, then answer with a fixed analysis structure: core contribution, background, method details, and critical thinking. Prioritize evidence from the paper text and keep claims grounded.
 
+Default to detailed, high-resolution explanations unless the user explicitly asks for brevity.
+
+## Response Style and Depth
+
+- Write in the tone of a well-read professor: calm, precise, and explanatory rather than slogan-like.
+- Keep language fluent and concrete; prefer mechanism-level explanations over vague summaries.
+- For difficult concepts, use analogies to improve intuition, but use them sparingly and always map the analogy back to the exact technical object.
+- Do not overuse bullet points. Prefer coherent paragraphs for reasoning, and use bullets only when list structure materially improves clarity (for example, side-by-side comparisons or explicit checklists).
+- When uncertainty exists, state it clearly and explain what is known vs. unknown from the paper.
+
 ## Markdown Acquisition (Required First Step)
 
 Always convert the paper to Markdown before analysis.
@@ -16,24 +26,24 @@ Always convert the paper to Markdown before analysis.
 1. Normalize input to an arXiv identifier.
    - Example: `2509.16117` is the arXiv ID for `https://arxiv.org/abs/2509.16117`.
    - `abs`, `pdf`, and `html` URLs map to the same ID.
-2. Call arxiv2md API:
-   - `curl -s "https://arxiv2md.org/api/markdown?url=<ARXIV_ID> > {paper-title}-{arxiv-id}.md`
+2. Use local conversion with `uvx` first:
+  - `uvx --from arxiv2markdown arxiv2md <ARXIV_ID> --remove-refs -o {paper-title}-{arxiv-id}.md`
 
 Preferred example:
 
 ```bash
-curl -s "https://arxiv2md.org/api/markdown?url=2509.16117" > title_2509.16117.md
+uvx --from arxiv2markdown arxiv2md 2509.16117 --remove-refs -o title_2509.16117.md
 ```
 
-Do not use python libraries or other tools for fetching/conversion to avoid inconsistencies. Always rely on `curl` and the arxiv2md API for this step.
+Do not use python libraries or other tools for fetching/conversion to avoid inconsistencies. Prefer `uvx --from arxiv2markdown arxiv2md` for this step.
 
 ## Fallback Rules
 
-- If API output is empty, malformed, or unavailable, use local conversion:
-  - `uvx --from arxiv2markdown arxiv2md <ARXIV_ID> --remove-refs -o paper.md`
+- If `uvx` is unavailable or conversion fails, call arxiv2md API with `curl`:
+  - `curl -s "https://arxiv2md.org/api/markdown?url=<ARXIV_ID>" > paper.md`
 - Then read and analyze from `paper.md` directly.
 - Example fallback command:
-  - `uvx --from arxiv2markdown arxiv2md 2509.16117 --remove-refs -o paper.md`
+  - `curl -s "https://arxiv2md.org/api/markdown?url=2509.16117" > paper.md`
 
 ## Reading Workflow
 
@@ -56,7 +66,7 @@ Use this exact section order unless the user asks otherwise.
 - 之前方法的主要不足
 - 作者为什么认为他们的方法可行
 
-Write each as 2-4 bullet points with evidence-oriented wording.
+Cover each item with evidence-oriented explanation. Prefer short paragraphs; use bullets only if comparison becomes clearer.
 
 ### 3) 方法详解
 
@@ -74,6 +84,8 @@ For each module, prefer this format:
 - 实现
 - 代价/复杂度影响
 
+When writing, avoid turning every module into a flat checklist; start with a concise intuition paragraph, then provide the structured fields.
+
 ### 4) 批判性思考
 
 - 最大亮点
@@ -88,4 +100,4 @@ Separate "paper-supported" and "your inference" when needed.
 - Do not fabricate numbers, datasets, or ablation results.
 - When citing performance, include metric + benchmark/task context.
 - Mark uncertainty explicitly if table/figure parsing is ambiguous.
-- Keep concise by default, expand only when user asks for deep dive.
+- Be detailed by default, with enough context that a graduate-level reader can follow the argument without reopening the paper.
