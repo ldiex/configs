@@ -9,6 +9,27 @@ Comprehensive guide to using uv, an extremely fast Python package installer and 
 
 ## When to Use This Skill
 
+## User Preference (Important)
+
+### Python Script Execution Preference (MUST FOLLOW)
+
+When using bash tool to run a Python script, prefer this workflow:
+
+1. Declare script dependencies explicitly at the top of the script, or
+2. Use `uv add --script` to attach dependencies to the script metadata.
+
+Then run the script with `uv run <script.py>`.
+
+```bash
+# Preferred: declare dependencies for the script first
+uv add --script example.py 'requests<3' 'rich'
+
+# Then run via uv
+uv run example.py
+```
+
+Do NOT run `python example.py` directly if dependencies are not declared.
+
 - Setting up new Python projects quickly
 - Managing Python dependencies faster than pip
 - Creating and managing virtual environments
