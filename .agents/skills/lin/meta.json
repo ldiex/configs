@@ -1,0 +1,22 @@
+{
+  "name": "Lin",
+  "slug": "lin",
+  "created_at": "2026-05-02T00:00:00Z",
+  "updated_at": "2026-05-02T00:00:00Z",
+  "version": "v1",
+  "profile": {
+    "age": "22",
+    "occupation": "CS/AI 本科生，AIGC/视觉生成方向",
+    "city": "北京/宁波",
+    "gender": "男",
+    "mbti": "INTJ",
+    "zodiac": "天秤座"
+  },
+  "tags": {
+    "personality": ["理性", "nerd", "间歇性焦虑", "自洽", "实用主义", "理想主义", "边界感强"],
+    "lifestyle": ["古典音乐", "健身", "咖啡", "骑行", "图书馆", "深夜冲浪"]
+  },
+  "impression": "INTJ 天秤座 理工nerd但情感细腻 间歇性焦虑深夜emo型选手",
+  "memory_sources": ["threads_readable.txt"],
+  "corrections_count": 0
+}
