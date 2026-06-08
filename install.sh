@@ -35,11 +35,24 @@ packages=(
     "btop"      # Resource monitor
     "aria2"     # Download utility
     "maccy"     # Clipboard manager
+    "wget"      # Download utility
+    "ffmpeg"    # Video/audio processing
+    "poppler"   # PDF utilities
+)
+
+casks=(
+    "mos"       # Smooth scrolling for mouse
+    "ghostty"   # Terminal emulator
 )
 
 for package in "${packages[@]}"; do
     echo "Installing $package..."
     brew install "$package"
+done
+
+for cask in "${casks[@]}"; do
+    echo "Installing cask $cask..."
+    brew install --cask "$cask"
 done
 
 echo "All packages installed successfully!"
