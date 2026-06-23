@@ -1,0 +1,3 @@
+[submodule ".agents/skills/academic-search"]
+	path = .agents/skills/academic-search
+	url = https://github.com/Mingyue-Cheng/academic-search.git
