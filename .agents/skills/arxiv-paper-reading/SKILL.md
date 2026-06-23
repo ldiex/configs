@@ -26,7 +26,7 @@ Always convert the paper to Markdown before analysis.
 1. Normalize input to an arXiv identifier.
    - Example: `2509.16117` is the arXiv ID for `https://arxiv.org/abs/2509.16117`.
    - `abs`, `pdf`, and `html` URLs map to the same ID.
-2. Use local conversion with `uvx` first:
+2. Use local conversion with `uvx` first (set the bash tool's `timeout` parameter to 10000ms):
   - `uvx --from arxiv2markdown arxiv2md <ARXIV_ID> --remove-refs -o {paper-title}-{arxiv-id}.md`
 
 Preferred example:
@@ -34,16 +34,17 @@ Preferred example:
 ```bash
 uvx --from arxiv2markdown arxiv2md 2509.16117 --remove-refs -o title_2509.16117.md
 ```
+(Bash tool timeout: 10000ms)
 
-Do not use python libraries or other tools for fetching/conversion to avoid inconsistencies. Prefer `uvx --from arxiv2markdown arxiv2md` for this step.
+If `uvx` does not produce any output within 10 seconds (or exits with an error), immediately fall back to the curl API below — do not retry `uvx`.
 
 ## Fallback Rules
 
-- If `uvx` is unavailable or conversion fails, call arxiv2md API with `curl`:
-  - `curl -s "https://arxiv2md.org/api/markdown?url=<ARXIV_ID>" > paper.md`
+- If `uvx` times out (>10s), is unavailable, or conversion fails, call arxiv2md REST API with `curl`:
+  - `curl -s "https://arxiv2md.org/api/markdown?url=<ARXIV_ID>" -o paper.md`
 - Then read and analyze from `paper.md` directly.
 - Example fallback command:
-  - `curl -s "https://arxiv2md.org/api/markdown?url=2509.16117" > paper.md`
+  - `curl -s "https://arxiv2md.org/api/markdown?url=2509.16117" -o paper.md`
 
 ## Reading Workflow
 
